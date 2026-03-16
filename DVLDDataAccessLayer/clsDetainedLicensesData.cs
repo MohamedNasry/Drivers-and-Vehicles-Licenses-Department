@@ -1,4 +1,5 @@
 ﻿using DVLD_Domain.DTO;
+using DVLD_Loggin;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -44,7 +45,7 @@ namespace DVLDDataAccessLayer
                     }
                     catch (Exception ex)
                     {
-
+                        EventLogger.LogError(ex, nameof(GetDetainedLicenseInfoByID));
                         //throw new Exception("An error occurred while retrieving detained license information.", ex);
                         isFound = false;
 
@@ -85,6 +86,7 @@ namespace DVLDDataAccessLayer
                     }
                     catch (Exception ex)
                     {
+                        EventLogger.LogError(ex, nameof(GetDetainedLicenseInfoByLicenseID));
                         //throw new Exception("An error occurred while retrieving detained license information.", ex);
                         isFound = false;
                     }
@@ -119,6 +121,7 @@ namespace DVLDDataAccessLayer
                     }
                     catch (Exception ex)
                     {
+                        EventLogger.LogError(ex, nameof(GetAllDetainedLicenses));
                         //throw new Exception("An error occurred while retrieving all detained licenses.", ex);
                         dtDetainedLicenses = null;
                     }
@@ -152,6 +155,7 @@ namespace DVLDDataAccessLayer
                     }
                     catch (Exception ex)
                     {
+                        EventLogger.LogError(ex, nameof(AddNewDetainedLicense));
                         //throw new Exception("An error occurred while adding a new detained license.", ex);
                         newDetainID = -1;
                     }
@@ -186,6 +190,7 @@ namespace DVLDDataAccessLayer
                     }
                     catch (Exception ex)
                     {
+                        EventLogger.LogError(ex, nameof(UpdateDetainedLicense));
                         //throw new Exception("An error occurred while updating the detained license.", ex);
                         rowsAffected = 0;
                     }
@@ -215,6 +220,7 @@ namespace DVLDDataAccessLayer
                     }
                     catch (Exception ex)
                     {
+                        EventLogger.LogError(ex, nameof(ReleaseDetainedLicense));
                         //throw new Exception("An error occurred while releasing the detained license.", ex);
                         rowsAffected = 0;
                     }
@@ -247,6 +253,7 @@ namespace DVLDDataAccessLayer
                     catch (Exception ex)
                     {
                         //throw new Exception("An error occurred while checking if the license is detained.", ex);
+                        EventLogger.LogError(ex, nameof(isLicenseDetained));
                         isDetained = false;
                     }
                 }
