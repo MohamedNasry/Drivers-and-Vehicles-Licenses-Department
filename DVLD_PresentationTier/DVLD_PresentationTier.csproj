@@ -965,6 +965,10 @@
       <Project>{721b5500-bdb7-4171-922a-c8e8314b145a}</Project>
       <Name>DVLDBusinessLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DVLD_Loggin\DVLD_Loggin.csproj">
+      <Project>{991a176c-1869-4942-be7e-ec0942554e01}</Project>
+      <Name>DVLD_Loggin</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
