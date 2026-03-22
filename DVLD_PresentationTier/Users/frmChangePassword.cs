@@ -64,7 +64,7 @@ namespace DVLD_PresentationTier
                 //e.Cancel = false;
                 errorProvider1.SetError(txtCurrentPassword, "");
             }
-            if (txtCurrentPassword.Text.Trim() != _User.Password)
+            if (clsUser.ComputerHash(txtCurrentPassword.Text.Trim()) != _User.Password)
             {
                 e.Cancel = true;
                 errorProvider1.SetError(txtCurrentPassword, "Current Password is Wrong!");
