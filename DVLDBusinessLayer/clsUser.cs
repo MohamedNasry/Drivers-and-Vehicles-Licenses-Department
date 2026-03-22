@@ -1,6 +1,8 @@
 ﻿using DVLDDataAccessLayer;
 using System;
 using System.Data;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace DVLDBusinessLayer
 {
@@ -93,6 +95,20 @@ namespace DVLDBusinessLayer
             }
         }
 
+        public static string ComputerHash(string input)
+        {
+            //SHA is Secutred Hash Algorithm.
+            // Create an instance of the SHA-256 algorithm
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                // Compute the hash value from the UTF-8 encoded input string
+                byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+
+                // Convert the byte array to a lowercase hexadecimal string
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+            }
+        }
 
         public static clsUser FindByUserNameAndPassword (string UserName, string Password)
         {
@@ -101,6 +117,8 @@ namespace DVLDBusinessLayer
             bool IsActive = false;
 
             bool IsFound = false;
+
+            Password = ComputerHash(Password);
 
             IsFound = clsUsersData.GetUserInfoByUserNameAndPassword(UserName, Password, ref
                 UserID, ref PersonID, ref IsActive);
@@ -117,6 +135,7 @@ namespace DVLDBusinessLayer
     
         private bool _AddNewUser()
         {
+            this.Password = ComputerHash(this.Password);
             this.UserID = clsUsersData.AddNewUser(this.PersonID, this.UserName, this.Password,
                 this.IsActive);
 
@@ -125,6 +144,7 @@ namespace DVLDBusinessLayer
 
         private bool _UpdateUser()
         {
+            this.Password = ComputerHash(this.Password);
             return clsUsersData.UpdateUser(this.UserID,this.PersonID,this.UserName,
                 this.Password,this.IsActive);
 
@@ -178,6 +198,7 @@ namespace DVLDBusinessLayer
 
         public static bool ChangePassword(int UserID,string NewPassword)
         {
+            NewPassword = ComputerHash(NewPassword);
             return clsUsersData.ChangePassword(UserID, NewPassword);
         }
 
